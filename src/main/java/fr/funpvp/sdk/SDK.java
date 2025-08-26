@@ -2,23 +2,20 @@ package fr.funpvp.sdk;
 
 import fr.funpvp.sdk.manager.ApiManagement;
 import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
-public final class SDK extends JavaPlugin {
+public final class SDK {
     private static SDK instance;
 
     private ApiManagement apiManagement;
 
-    @Override
-    public void onEnable() {
+    public void load() {
         instance = this;
 
         apiManagement = new ApiManagement();
     }
 
-    @Override
-    public void onDisable() {
+    public void unload() {
         apiManagement.disableAll();
     }
 

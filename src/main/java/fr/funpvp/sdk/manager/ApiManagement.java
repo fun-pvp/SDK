@@ -33,9 +33,22 @@ public class ApiManagement {
         SdkLogger.info(api.getClass().getSimpleName() + " has been disabled.");
     }
 
-    public Api get(ApiType type) {
-        return registry.get(type);
+    public <T extends Api> T get(ApiType type, Class<T> clazz) {
+        Api api = registry.get(type);
+        if (!clazz.isInstance(api)) {
+            throw new IllegalStateException("API stored is not of type " + clazz.getSimpleName());
+        }
+        return clazz.cast(api);
     }
+
+    @SuppressWarnings("unchecked")
+    public <T extends Api> T get(ApiType type) {
+        Api api = registry.get(type);
+        if (api == null) return null;
+
+        return (T) api;
+    }
+
 
     public List<Api> getApis() {
         return registry.getApis();

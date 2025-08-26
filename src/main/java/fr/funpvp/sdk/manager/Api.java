@@ -27,11 +27,19 @@ public abstract class Api {
     public abstract void onApiLoad();
     public abstract void onApiUnload();
 
-    public void addDependency(ApiType dependency) {
+    protected void addDependency(ApiType dependency) {
         this.dependencies.add(dependency);
     }
 
-    public ApiManagement getManagement() {
+    protected void addDependencies(ApiType... dependencies) {
+        this.dependencies.addAll(List.of(dependencies));
+    }
+
+    protected <T extends Api> T getDependency(ApiType dependency) {
+        return (T) getManagement().get(dependency, dependency.getAClass());
+    }
+
+    protected ApiManagement getManagement() {
         return SDK.get().getApiManagement();
     }
 }
