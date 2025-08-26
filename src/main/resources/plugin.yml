@@ -1,3 +1,5 @@
-name: sdk
+name: SDK
 version: '${version}'
 main: fr.funpvp.sdk.SDK
+author: TRAO
+website: funpvp.fr
